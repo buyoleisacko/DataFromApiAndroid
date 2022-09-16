@@ -3,17 +3,24 @@ package com.example.apiapp
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.RequestQueue
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.BasicNetwork
 import com.android.volley.toolbox.DiskBasedCache
 import com.android.volley.toolbox.HurlStack
-import com.android.volley.toolbox.JsonObjectRequest
 import com.bumptech.glide.Glide
-import java.util.jar.Attributes
+import org.json.JSONObject
 
+
+private var String?.text: String
+    get() {
+        TODO("Not yet implemented")
+    }
+    set(text) {}
 
 class MainActivity : AppCompatActivity() {
     lateinit var requestQueue: RequestQueue
@@ -30,7 +37,6 @@ class MainActivity : AppCompatActivity() {
             start()
         }
 
-
         search.setOnClickListener {
             var input = userinput.text.toString()
             fetchData(input)
@@ -39,18 +45,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun fetchData(input: String) {
+    private fun fetchData(input: String) {
         val url = "http://www.omdbapi.com/?t=${input}&apikey=cebd9b53"
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
             { response ->
                 if (response.get("Response") == "False") {
-                    val name = Attributes.Name
+                    val name: String? = null
+
                     name.text = "Incorrect detail"
                 } else {
-                    Glide.with(this).load(response.getString("Poster")).into(image)
+                    val image: ImageView? = null
+                    if (image != null) {
+                        Glide.with(this).load(response.getString("Poster")).into(image)
+                    }
+
+                    val plot = null
                     plot.text = response.getString("Plot")
-                    name.text =
-                        response.getString("Title") + "\n\n" + "Writer: " + response.getString("Writer")
+                    val name = null
+                    name.text = response.getString("Title") + "\n\n" + "Writer: " + response.getString("Writer")
                 }
             },
             { error ->
@@ -60,4 +72,18 @@ class MainActivity : AppCompatActivity() {
 
         requestQueue.add(jsonObjectRequest)
     }
+
+    private fun JsonObjectRequest(
+        get: Int,
+        url: String,
+        nothing: Nothing?,
+        function: (response: JSONObject) -> Unit,
+        function1: (error: VolleyError) -> Unit
+    ) {
+
+    }
+}
+
+private fun RequestQueue.add(jsonObjectRequest: Unit) {
+    TODO("Not yet implemented")
 }
